@@ -59,13 +59,19 @@
                   <option value="ai">AI Daily</option>
                 </select>
               </label>
-              <label>状态
-                <select id="published">
-                  <option value="true">已发布</option>
-                  <option value="false">草稿</option>
+              <label>可见性
+                <select id="visibility">
+                  <option value="public">公开</option>
+                  <option value="private">私密</option>
                 </select>
               </label>
             </div>
+            <label>状态
+              <select id="published">
+                <option value="true">已发布</option>
+                <option value="false">草稿</option>
+              </select>
+            </label>
             <div class="editor-actions">
               <button id="saveBtn" class="primary">保存</button>
               <button id="deleteBtn" class="danger hidden">删除</button>
