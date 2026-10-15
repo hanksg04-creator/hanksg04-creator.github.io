@@ -1,4 +1,4 @@
-const notes = [
+let notes = [
   {
     id: 5,
     date: "2026.10.16",
@@ -148,3 +148,68 @@ document.addEventListener("pointermove", event => {
 
 document.getElementById("year").textContent = new Date().getFullYear();
 renderNotes();
+loadCmsContent();
+
+
+async function loadCmsContent() {
+  const cfg = window.SITE_CONFIG || {};
+  if (!cfg.supabaseUrl || !cfg.supabaseAnonKey || cfg.supabaseUrl.includes("YOUR_") || !window.supabase) return;
+
+  try {
+    const client = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+
+    const [{ data: remotePosts, error: postsError }, { data: settings }] = await Promise.all([
+      client.from("posts")
+        .select("id,title,category,summary,body,published_at,created_at")
+        .eq("published", true)
+        .order("published_at", { ascending: false }),
+      client.from("site_settings").select("*").eq("id", "main").maybeSingle()
+    ]);
+
+    if (!postsError && remotePosts && remotePosts.length) {
+      notes = remotePosts.map(post => ({
+        id: post.id,
+        date: formatCmsDate(post.published_at || post.created_at),
+        category: post.category || "life",
+        categoryLabel: ({ investing: "投资", engineering: "工程", life: "随想" })[post.category] || "随想",
+        title: post.title,
+        summary: post.summary || "",
+        body: String(post.body || "").split(/\n\s*\n/).filter(Boolean)
+      }));
+      renderNotes();
+    }
+
+    if (settings) applySiteSettings(settings);
+  } catch (error) {
+    console.warn("CMS unavailable; using local content.", error);
+  }
+}
+
+function formatCmsDate(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join(".");
+}
+
+function applySiteSettings(s) {
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if (el && value) el.textContent = value;
+  };
+
+  setText("brandName", s.display_name);
+  setText("footerName", s.display_name);
+  setText("locationText", s.location_text);
+  setText("focusTitle", s.focus_title);
+  setText("focusBody", s.focus_body);
+  setText("aboutBody", s.about_body);
+
+  const heroTitle = document.getElementById("heroTitle");
+  if (heroTitle && s.hero_title) heroTitle.textContent = s.hero_title;
+
+  const heroCopy = document.getElementById("heroCopy");
+  if (heroCopy && s.hero_copy) heroCopy.textContent = s.hero_copy;
+
+  if (s.display_name) document.title = `${s.display_name} — Personal Space`;
+}
