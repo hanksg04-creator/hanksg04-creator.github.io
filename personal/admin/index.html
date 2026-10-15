@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <title>Personal Space Admin</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <header class="bar">
+    <div>
+      <p class="eyebrow">PERSONAL SPACE / ADMIN</p>
+      <h1>Journal Studio</h1>
+    </div>
+    <div class="actions">
+      <a href="../">查看 Personal Site ↗</a>
+      <button id="logoutBtn" class="ghost hidden">退出</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="loginCard" class="card login-card">
+      <p class="eyebrow">SIGN IN</p>
+      <h2>管理员登录</h2>
+      <form id="loginForm">
+        <label>邮箱<input id="email" type="email" autocomplete="username" required /></label>
+        <label>密码<input id="password" type="password" autocomplete="current-password" required /></label>
+        <button class="primary" type="submit">登录</button>
+      </form>
+      <p id="loginMsg" class="msg"></p>
+    </section>
+
+    <section id="studio" class="hidden">
+      <div class="tabs">
+        <button class="tab active" data-tab="posts">记录</button>
+        <button class="tab" data-tab="settings">首页资料</button>
+      </div>
+
+      <div id="postsTab" class="tab-panel">
+        <div class="workspace">
+          <aside class="card list-panel">
+            <div class="list-head">
+              <div><p class="eyebrow">ENTRIES</p><h2>全部记录</h2></div>
+              <button id="newBtn" class="primary small">+ 新建</button>
+            </div>
+            <div id="postList" class="post-list"></div>
+          </aside>
+
+          <section class="card editor">
+            <p class="eyebrow" id="editorMode">NEW NOTE</p>
+            <label>标题<input id="title" type="text" placeholder="今天在想什么？" /></label>
+            <label>摘要<textarea id="summary" rows="2" placeholder="一句话概括，可留空"></textarea></label>
+            <label>正文<textarea id="body" rows="15" placeholder="写点什么……"></textarea></label>
+            <div class="two">
+              <label>类型
+                <select id="source">
+                  <option value="user">我的记录</option>
+                  <option value="ai">AI Daily</option>
+                </select>
+              </label>
+              <label>状态
+                <select id="published">
+                  <option value="true">已发布</option>
+                  <option value="false">草稿</option>
+                </select>
+              </label>
+            </div>
+            <div class="editor-actions">
+              <button id="saveBtn" class="primary">保存</button>
+              <button id="deleteBtn" class="danger hidden">删除</button>
+            </div>
+            <p id="saveMsg" class="msg"></p>
+          </section>
+        </div>
+      </div>
+
+      <div id="settingsTab" class="tab-panel hidden">
+        <section class="card settings">
+          <p class="eyebrow">HOMEPAGE</p>
+          <h2>Personal Site 首页资料</h2>
+          <label>网站标题<input id="siteTitleInput" type="text" /></label>
+          <label>副标题<textarea id="siteSubtitleInput" rows="3"></textarea></label>
+          <label>最近<textarea id="nowTextInput" rows="4"></textarea></label>
+          <label>关于这个空间<textarea id="aboutTextInput" rows="5"></textarea></label>
+          <button id="saveSettingsBtn" class="primary">保存首页资料</button>
+          <p id="settingsMsg" class="msg"></p>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
