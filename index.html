@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="一个简洁的个人主页：介绍、近况、想法、项目与联系信息。" />
+  <title>Hanks — Personal Space</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="返回顶部">
+      <span class="brand-dot"></span>
+      <span>Hanks</span>
+    </a>
+
+    <nav class="nav" aria-label="主导航">
+      <a href="#now">近况</a>
+      <a href="#notes">想法</a>
+      <a href="#projects">展示</a>
+      <a href="#about">关于</a>
+    </nav>
+
+    <button class="icon-button" id="themeToggle" type="button" aria-label="切换深浅色主题" title="切换主题">
+      <span id="themeIcon">◐</span>
+    </button>
+  </header>
+
+  <main id="top">
+    <section class="hero section-shell">
+      <p class="eyebrow">PERSONAL SPACE / 2026</p>
+      <h1>记录我正在做的事，<br />以及我真正相信的东西。</h1>
+      <p class="hero-copy">
+        这里是我的个人主页。会放一些最近在做的事、工程与技术项目、投资市场观察，
+        以及偶尔冒出来但值得留下的想法。
+      </p>
+      <div class="hero-actions">
+        <a class="button primary" href="#notes">阅读最近想法</a>
+        <a class="button ghost" href="#now">看看我最近在做什么</a>
+      </div>
+      <div class="hero-meta">
+        <span><i class="status-dot"></i> 持续更新中</span>
+        <span>Malaysia / Online</span>
+      </div>
+    </section>
+
+    <section class="section-shell" id="now">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">NOW</p>
+          <h2>最近在干嘛</h2>
+        </div>
+        <p class="section-intro">一个不用写成长文的动态区。适合放你最近一两个月最想展示的事情。</p>
+      </div>
+
+      <div class="now-grid">
+        <article class="panel feature-panel">
+          <p class="panel-label">CURRENT FOCUS</p>
+          <h3>学习、项目与长期积累</h3>
+          <p>最近主要在推进课程项目，继续练习工程问题拆解、编程和表达。同时也在整理自己的长期投资框架。</p>
+          <div class="tag-row">
+            <span>Engineering</span><span>Python</span><span>Investing</span>
+          </div>
+        </article>
+
+        <article class="panel stat-panel">
+          <span class="big-number">01</span>
+          <div>
+            <p class="panel-label">RULE I KEEP</p>
+            <h3>把复杂问题写简单</h3>
+            <p>如果一个观点解释不清楚，通常说明我还没有真正理解它。</p>
+          </div>
+        </article>
+
+        <article class="panel stat-panel">
+          <span class="big-number">02</span>
+          <div>
+            <p class="panel-label">CURRENT QUESTION</p>
+            <h3>什么值得长期持有？</h3>
+            <p>不只是在股票里，也包括技能、习惯、关系和注意力。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-shell" id="notes">
+      <div class="section-heading notes-heading">
+        <div>
+          <p class="eyebrow">NOTES</p>
+          <h2>最近的想法</h2>
+        </div>
+        <div class="filters" role="group" aria-label="文章分类筛选">
+          <button class="filter active" data-filter="all">全部</button>
+          <button class="filter" data-filter="investing">投资</button>
+          <button class="filter" data-filter="engineering">工程</button>
+          <button class="filter" data-filter="life">随想</button>
+        </div>
+      </div>
+
+      <div class="notes-list" id="notesList"></div>
+    </section>
+
+    <section class="section-shell" id="projects">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">SELECTED THINGS</p>
+          <h2>我想展示的东西</h2>
+        </div>
+        <p class="section-intro">不一定非得是“作品集”。课程项目、数据分析、旅行记录、阅读清单都可以放这里。</p>
+      </div>
+
+      <div class="project-grid">
+        <article class="project-card">
+          <div class="project-index">01</div>
+          <div>
+            <p class="project-type">ENGINEERING</p>
+            <h3>课程与硬件项目</h3>
+            <p>传感器、嵌入式系统、Python 数据处理，以及把一个系统真正调通的过程。</p>
+          </div>
+          <span class="arrow">↗</span>
+        </article>
+
+        <article class="project-card">
+          <div class="project-index">02</div>
+          <div>
+            <p class="project-type">MARKETS</p>
+            <h3>投资观察</h3>
+            <p>记录我对指数、公司、市场情绪与长期复利的理解，不构成任何投资建议。</p>
+          </div>
+          <span class="arrow">↗</span>
+        </article>
+
+        <article class="project-card">
+          <div class="project-index">03</div>
+          <div>
+            <p class="project-type">ARCHIVE</p>
+            <h3>个人档案</h3>
+            <p>我读过的东西、去过的地方、留下来的照片和一些值得以后回看的片段。</p>
+          </div>
+          <span class="arrow">↗</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-shell about-grid" id="about">
+      <div>
+        <p class="eyebrow">ABOUT</p>
+        <h2>一个比简历更像“我”的页面。</h2>
+      </div>
+      <div class="about-copy">
+        <p>我喜欢把这个网站理解成一张会不断更新的名片，而不是一份静态简历。它可以告诉别人我是谁，也可以记录我某个阶段到底在想什么。</p>
+        <p>你可以把联系方式、GitHub、LinkedIn、邮箱或其他主页放在这里。也可以只保留一个公开邮箱，保持页面足够克制。</p>
+        <div class="contact-row">
+          <a href="mailto:hello@example.com">Email ↗</a>
+          <a href="#">GitHub ↗</a>
+          <a href="#">LinkedIn ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer section-shell">
+    <span>© <span id="year"></span> Hanks</span>
+    <span>Built as a personal archive, not a feed.</span>
+  </footer>
+
+  <dialog class="note-dialog" id="noteDialog">
+    <button class="dialog-close" id="dialogClose" aria-label="关闭文章">×</button>
+    <p class="eyebrow" id="dialogMeta"></p>
+    <h2 id="dialogTitle"></h2>
+    <div class="dialog-body" id="dialogBody"></div>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
