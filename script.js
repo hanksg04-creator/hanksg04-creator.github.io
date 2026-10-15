@@ -1,5 +1,18 @@
 const notes = [
   {
+    id: 5,
+    date: "2026.10.16",
+    category: "life",
+    categoryLabel: "随想",
+    title: "Hello, world.",
+    summary: "这是这个网站的第一条正式记录，也是一次发布测试。",
+    body: [
+      "Hello！这是我在这个个人网站上发布的第一条记录。",
+      "我想把这里当成一个长期更新的个人空间：记录最近在做什么、工程项目、投资市场的想法，以及一些值得以后回看的东西。",
+      "先从这一条开始。"
+    ]
+  },
+  {
     id: 1,
     date: "2026.10",
     category: "investing",
