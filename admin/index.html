@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Steven Gao — Admin</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">STEVEN GAO / ADMIN</p>
+        <h1>Website Studio</h1>
+      </div>
+      <div class="top-actions">
+        <a href="../" target="_blank" rel="noreferrer">查看网站 ↗</a>
+        <button id="logoutBtn" class="ghost hidden">退出</button>
+      </div>
+    </header>
+
+    <section id="setupCard" class="card hidden">
+      <h2>后台还没有连接数据库</h2>
+      <p>UI 已经部署好。完成一次 Supabase 配置后，你以后只需要打开这个页面管理内容，不用再碰 GitHub。</p>
+      <code>../config.js</code>
+    </section>
+
+    <section id="loginCard" class="card login-card hidden">
+      <p class="eyebrow">ADMIN LOGIN</p>
+      <h2>管理员登录</h2>
+      <form id="loginForm">
+        <label>邮箱<input id="email" type="email" autocomplete="username" required></label>
+        <label>密码<input id="password" type="password" autocomplete="current-password" required></label>
+        <button class="primary" type="submit">登录</button>
+      </form>
+      <p id="loginMessage" class="message"></p>
+    </section>
+
+    <section id="app" class="hidden">
+      <div class="tabs">
+        <button class="tab active" data-tab="posts">文章</button>
+        <button class="tab" data-tab="homepage">首页资料</button>
+      </div>
+
+      <div id="postsTab" class="tab-panel">
+        <div class="workspace">
+          <aside class="sidebar card">
+            <div class="sidebar-head">
+              <h2>文章</h2>
+              <button id="newPostBtn" class="primary small">+ 新建</button>
+            </div>
+            <div id="postList" class="post-list"></div>
+          </aside>
+
+          <section class="editor card">
+            <div class="editor-head">
+              <div>
+                <p class="eyebrow">POST EDITOR</p>
+                <h2 id="editorTitle">新文章</h2>
+              </div>
+              <div class="status-row">
+                <span id="saveStatus"></span>
+              </div>
+            </div>
+
+            <form id="postForm">
+              <input id="postId" type="hidden">
+              <label>标题<input id="title" required placeholder="例如：Hello, world."></label>
+              <div class="two-col">
+                <label>分类
+                  <select id="category">
+                    <option value="life">随想</option>
+                    <option value="investing">投资</option>
+                    <option value="engineering">工程</option>
+                  </select>
+                </label>
+                <label>状态
+                  <select id="published">
+                    <option value="false">草稿</option>
+                    <option value="true">已发布</option>
+                  </select>
+                </label>
+              </div>
+              <label>摘要<textarea id="summary" rows="3" placeholder="首页显示的一两句话"></textarea></label>
+              <label>正文<textarea id="body" rows="15" placeholder="直接写正文。空一行会分成新的段落。"></textarea></label>
+              <div class="form-actions">
+                <button class="primary" type="submit">保存</button>
+                <button id="deleteBtn" class="danger hidden" type="button">删除</button>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+
+      <div id="homepageTab" class="tab-panel hidden">
+        <section class="card homepage-editor">
+          <p class="eyebrow">HOMEPAGE</p>
+          <h2>首页资料</h2>
+          <form id="settingsForm">
+            <div class="two-col">
+              <label>公开显示名<input id="displayName" placeholder="Steven Gao"></label>
+              <label>正式姓名<input id="legalName" placeholder="Gao Tianyu"></label>
+            </div>
+            <label>首页大标题<textarea id="heroTitle" rows="3"></textarea></label>
+            <label>首页介绍<textarea id="heroCopy" rows="4"></textarea></label>
+            <label>最近在做什么 — 标题<input id="focusTitle"></label>
+            <label>最近在做什么 — 内容<textarea id="focusBody" rows="4"></textarea></label>
+            <label>About<textarea id="aboutBody" rows="5"></textarea></label>
+            <label>位置 / 状态<input id="locationText" placeholder="Malaysia / Online"></label>
+            <button class="primary" type="submit">保存首页</button>
+            <span id="settingsStatus" class="message"></span>
+          </form>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
