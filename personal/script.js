@@ -30,14 +30,14 @@ function renderList(id,items,empty,label){
         <h3>${esc(p.title)}</h3>
         <p>${esc(p.summary||"")}</p>
       </div>
-      <span class="entry-tag">${label}</span>
+      <span class="entry-tag">${p.visibility==="private"?"PRIVATE · ":""}${label}</span>
     </article>`).join("");
 }
 
 function openPost(id){
   const p=posts.find(x=>String(x.id)===String(id));
   if(!p)return;
-  readerMeta.textContent=`${p.source==="ai"?"AI DAILY":"NOTE"} / ${dateOf(p.published_at||p.created_at)}`;
+  readerMeta.textContent=`${p.visibility==="private"?"PRIVATE / ":""}${p.source==="ai"?"AI DAILY":"NOTE"} / ${dateOf(p.published_at||p.created_at)}`;
   readerTitle.textContent=p.title;
   readerBody.innerHTML=String(p.body||"").split(/\n\s*\n/).filter(Boolean).map(x=>`<p>${esc(x)}</p>`).join("");
   reader.showModal();
