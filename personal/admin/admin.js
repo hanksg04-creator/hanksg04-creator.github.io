@@ -62,6 +62,7 @@ function renderList(){
       <h3>${esc(r.title)}</h3>
       <div class="post-meta">
         <span class="badge">${r.source==="ai"?"AI Daily":"我的记录"}</span>
+        <span class="badge">${r.visibility==="private"?"私密":"公开"}</span>
         <span>${r.published?"已发布":"草稿"}</span>
       </div>
     </div>`).join("");
@@ -82,6 +83,7 @@ function selectPost(id){
   $("summary").value=r.summary||"";
   $("body").value=r.body||"";
   $("source").value=r.source||"user";
+  $("visibility").value=r.visibility||"public";
   $("published").value=String(!!r.published);
   $("deleteBtn").classList.remove("hidden");
   msg("saveMsg","");
@@ -95,6 +97,7 @@ function resetEditor(){
   $("summary").value="";
   $("body").value="";
   $("source").value="user";
+  $("visibility").value="public";
   $("published").value="true";
   $("deleteBtn").classList.add("hidden");
   msg("saveMsg","");
@@ -113,6 +116,7 @@ $("saveBtn").addEventListener("click",async()=>{
     summary:$("summary").value.trim(),
     body:$("body").value.trim(),
     source:$("source").value,
+    visibility:$("visibility").value,
     published,
     updated_at:new Date().toISOString()
   };
