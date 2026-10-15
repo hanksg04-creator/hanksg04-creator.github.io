@@ -13,7 +13,7 @@
   <header class="site-header">
     <a class="brand" href="#top" aria-label="返回顶部">
       <span class="brand-dot"></span>
-      <span>Steven Gao</span>
+      <span id="brandName">Steven Gao</span>
     </a>
 
     <nav class="nav" aria-label="主导航">
@@ -31,8 +31,8 @@
   <main id="top">
     <section class="hero section-shell">
       <p class="eyebrow">PERSONAL SPACE / 2026</p>
-      <h1>记录我正在做的事，<br />以及我真正相信的东西。</h1>
-      <p class="hero-copy">
+      <h1 id="heroTitle">记录我正在做的事，<br />以及我真正相信的东西。</h1>
+      <p class="hero-copy" id="heroCopy">
         这里是我的个人主页。会放一些最近在做的事、工程与技术项目、投资市场观察，
         以及偶尔冒出来但值得留下的想法。
       </p>
@@ -42,7 +42,7 @@
       </div>
       <div class="hero-meta">
         <span><i class="status-dot"></i> 持续更新中</span>
-        <span>Malaysia / Online</span>
+        <span id="locationText">Malaysia / Online</span>
       </div>
     </section>
 
@@ -58,8 +58,8 @@
       <div class="now-grid">
         <article class="panel feature-panel">
           <p class="panel-label">CURRENT FOCUS</p>
-          <h3>学习、项目与长期积累</h3>
-          <p>最近主要在推进课程项目，继续练习工程问题拆解、编程和表达。同时也在整理自己的长期投资框架。</p>
+          <h3 id="focusTitle">学习、项目与长期积累</h3>
+          <p id="focusBody">最近主要在推进课程项目，继续练习工程问题拆解、编程和表达。同时也在整理自己的长期投资框架。</p>
           <div class="tag-row">
             <span>Engineering</span><span>Python</span><span>Investing</span>
           </div>
@@ -150,7 +150,7 @@
         <h2>一个比简历更像“我”的页面。</h2>
       </div>
       <div class="about-copy">
-        <p>我是 Gao Tianyu，也可以叫我 Steven Gao。我喜欢把这个网站理解成一张会不断更新的名片，而不是一份静态简历。它可以告诉别人我是谁，也可以记录我某个阶段到底在想什么。</p>
+        <p id="aboutBody">我是 Gao Tianyu，也可以叫我 Steven Gao。我喜欢把这个网站理解成一张会不断更新的名片，而不是一份静态简历。它可以告诉别人我是谁，也可以记录我某个阶段到底在想什么。</p>
         <p>你可以把联系方式、GitHub、LinkedIn、邮箱或其他主页放在这里。也可以只保留一个公开邮箱，保持页面足够克制。</p>
         <div class="contact-row">
           <a href="mailto:hello@example.com">Email ↗</a>
@@ -162,7 +162,7 @@
   </main>
 
   <footer class="site-footer section-shell">
-    <span>© <span id="year"></span> Steven Gao</span>
+    <span>© <span id="year"></span> <span id="footerName">Steven Gao</span></span>
     <span>Built as a personal archive, not a feed.</span>
   </footer>
 
@@ -173,6 +173,8 @@
     <div class="dialog-body" id="dialogBody"></div>
   </dialog>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
