@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <meta name="description" content="A quiet personal space for notes, reflections, and AI daily summaries." />
+  <title>Steven's Space</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top">STEVEN'S SPACE</a>
+    <nav>
+      <a href="#now">Now</a>
+      <a href="#notes">Notes</a>
+      <a href="#ai-daily">AI Daily</a>
+      <a href="#about">About</a>
+    </nav>
+    <button id="themeToggle" class="theme" aria-label="切换主题">◐</button>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <p class="kicker">PERSONAL / LOW-DISCOVERY / ALWAYS IN PROGRESS</p>
+      <h1 id="siteTitle">Steven's Space</h1>
+      <p id="siteSubtitle" class="lede">A quiet place for thoughts, notes, and daily reflections.</p>
+      <div class="hero-links">
+        <a href="#notes">我的记录 ↓</a>
+        <a href="#ai-daily">AI Daily ↓</a>
+      </div>
+    </section>
+
+    <section class="shell section" id="now">
+      <div class="section-head">
+        <div><p class="kicker">NOW</p><h2>最近</h2></div>
+        <span class="muted">不用写成正式文章的状态更新。</span>
+      </div>
+      <div class="now-card">
+        <span class="pulse"></span>
+        <p id="nowText">最近的想法、学习过程和一些没有必要写成正式文章的片段。</p>
+      </div>
+    </section>
+
+    <section class="shell section" id="notes">
+      <div class="section-head">
+        <div><p class="kicker">MY NOTES</p><h2>我的记录</h2></div>
+        <span class="muted">自己写的随想、学习和阶段性记录。</span>
+      </div>
+      <div id="notesList" class="entry-list">
+        <p class="empty">还没有记录。</p>
+      </div>
+    </section>
+
+    <section class="shell section" id="ai-daily">
+      <div class="section-head">
+        <div><p class="kicker">AI DAILY</p><h2>AI 总结</h2></div>
+        <span class="muted">由 AI 从当天交流中提炼出的主题与思考。</span>
+      </div>
+      <div id="aiList" class="entry-list">
+        <p class="empty">AI Daily 还没有开始记录。</p>
+      </div>
+    </section>
+
+    <section class="shell section about" id="about">
+      <div><p class="kicker">ABOUT THIS SPACE</p><h2>写给未来的自己。</h2></div>
+      <p id="aboutText">这是一个更私人、更随意的空间。它公开可访问，但主要写给未来的自己。</p>
+    </section>
+  </main>
+
+  <footer class="shell footer">
+    <span>Personal archive.</span>
+    <a href="admin/">Admin ↗</a>
+  </footer>
+
+  <dialog id="reader" class="reader">
+    <button id="closeReader" class="close" aria-label="关闭">×</button>
+    <p id="readerMeta" class="kicker"></p>
+    <h2 id="readerTitle"></h2>
+    <div id="readerBody" class="reader-body"></div>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
