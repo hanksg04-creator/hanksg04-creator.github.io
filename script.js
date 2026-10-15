@@ -1,8 +1,6 @@
 let notes = [];
-let aiDaily = [];
 
 const list = document.getElementById("notesList");
-const aiList = document.getElementById("aiDailyList");
 const dialog = document.getElementById("noteDialog");
 const dialogTitle = document.getElementById("dialogTitle");
 const dialogMeta = document.getElementById("dialogMeta");
@@ -14,66 +12,50 @@ function escapeHtml(value) {
   return div.innerHTML;
 }
 
-function renderEntries(target, entries, emptyText) {
-  if (!entries.length) {
-    target.innerHTML = `<div class="empty-state">${escapeHtml(emptyText)}</div>`;
+function renderNotes(filter = "all") {
+  const visible = filter === "all" ? notes : notes.filter(note => note.category === filter);
+
+  if (!visible.length) {
+    list.innerHTML = '<div class="empty-state">还没有发布个人记录。</div>';
     return;
   }
 
-  target.innerHTML = entries.map(note => `
-    <article class="note-item" tabindex="0" data-id="${note.id}" data-source="${note.source}" aria-label="阅读文章：${escapeHtml(note.title)}">
+  list.innerHTML = visible.map(note => `
+    <article class="note-item" tabindex="0" data-id="${note.id}" aria-label="阅读文章：${escapeHtml(note.title)}">
       <div class="note-date">${escapeHtml(note.date)}</div>
       <div>
         <h3 class="note-title">${escapeHtml(note.title)}</h3>
         <p class="note-summary">${escapeHtml(note.summary)}</p>
       </div>
-      <div class="note-category">${escapeHtml(note.source === "ai" ? "AI" : note.categoryLabel)}</div>
+      <div class="note-category">${escapeHtml(note.categoryLabel)}</div>
     </article>
   `).join("");
 }
 
-function renderNotes(filter = "all") {
-  const visible = filter === "all" ? notes : notes.filter(note => note.category === filter);
-  renderEntries(list, visible, "还没有发布个人记录。");
-}
-
-function renderAiDaily() {
-  renderEntries(aiList, aiDaily, "AI Daily 会在当天有实质交流时自动出现在这里。");
-}
-
-function getEntry(id, source) {
-  const collection = source === "ai" ? aiDaily : notes;
-  return collection.find(item => item.id === Number(id));
-}
-
-function openNote(id, source = "user") {
-  const note = getEntry(id, source);
+function openNote(id) {
+  const note = notes.find(item => item.id === Number(id));
   if (!note) return;
-  dialogMeta.textContent = `${note.source === "ai" ? "AI DAILY" : note.categoryLabel.toUpperCase()} / ${note.date}`;
+
+  dialogMeta.textContent = `${note.categoryLabel.toUpperCase()} / ${note.date}`;
   dialogTitle.textContent = note.title;
   dialogBody.innerHTML = note.body.map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join("");
   dialog.showModal();
 }
 
-function bindList(target) {
-  target.addEventListener("click", event => {
+list.addEventListener("click", event => {
+  const item = event.target.closest(".note-item");
+  if (item) openNote(item.dataset.id);
+});
+
+list.addEventListener("keydown", event => {
+  if (event.key === "Enter" || event.key === " ") {
     const item = event.target.closest(".note-item");
-    if (item) openNote(item.dataset.id, item.dataset.source);
-  });
-
-  target.addEventListener("keydown", event => {
-    if (event.key === "Enter" || event.key === " ") {
-      const item = event.target.closest(".note-item");
-      if (item) {
-        event.preventDefault();
-        openNote(item.dataset.id, item.dataset.source);
-      }
+    if (item) {
+      event.preventDefault();
+      openNote(item.dataset.id);
     }
-  });
-}
-
-bindList(list);
-bindList(aiList);
+  }
+});
 
 document.querySelectorAll(".filter").forEach(button => {
   button.addEventListener("click", () => {
@@ -113,7 +95,6 @@ document.addEventListener("pointermove", event => {
 
 document.getElementById("year").textContent = new Date().getFullYear();
 renderNotes();
-renderAiDaily();
 loadCmsContent();
 
 async function loadCmsContent() {
@@ -127,16 +108,14 @@ async function loadCmsContent() {
       client.from("posts")
         .select("id,title,category,summary,body,source,published_at,created_at")
         .eq("published", true)
+        .neq("source", "ai")
         .order("published_at", { ascending: false }),
       client.from("site_settings").select("*").eq("id", "main").maybeSingle()
     ]);
 
     if (!postsError && remotePosts) {
-      const mapped = remotePosts.map(mapCmsPost);
-      notes = mapped.filter(post => post.source !== "ai");
-      aiDaily = mapped.filter(post => post.source === "ai");
+      notes = remotePosts.map(mapCmsPost);
       renderNotes(document.querySelector(".filter.active")?.dataset.filter || "all");
-      renderAiDaily();
     }
 
     if (settings) applySiteSettings(settings);
@@ -146,10 +125,8 @@ async function loadCmsContent() {
 }
 
 function mapCmsPost(post) {
-  const source = post.source === "ai" ? "ai" : "user";
   return {
     id: post.id,
-    source,
     date: formatCmsDate(post.published_at || post.created_at),
     category: post.category || "life",
     categoryLabel: ({ investing: "投资", engineering: "工程", life: "随想" })[post.category] || "随想",
